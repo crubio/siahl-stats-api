@@ -36,7 +36,7 @@ def get_valid_ids():
     '''Returns valid player ids, pipe output to a file and use as input for get_find_player_by_name function'''
     player_ids = []
     # valid ids seem to be in this range
-    for id in range(50141, 58000):
+    for id in range(50000, 58000):
         page = urlopen(f"{STATS_URL}{id}")
         html_bytes = page.read()
         html = html_bytes.decode()
