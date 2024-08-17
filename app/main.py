@@ -1,6 +1,7 @@
 from typing import Union
 from fastapi import FastAPI
 from .routers import stats
+from . import models
 
 app = FastAPI()
 
