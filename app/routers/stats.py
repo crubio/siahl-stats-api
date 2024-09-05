@@ -54,6 +54,21 @@ async def get_player_stats(player_id: int, sort: Optional[str] = False):
       "stats": stats_data,
     }
 
+@router.get("/search/{partial_name_string}")
+async def search_for_player(partial_name_string: str):
+    conn = sqlitecloud.connect(get_db_url())
+    cursor = conn.execute("SELECT * FROM players_fts WHERE full_name LIKE ?", (f"%{partial_name_string}%",))
+    results = cursor.fetchall()
+
+    if len(results) == 0:
+      conn.close()
+      raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No players found")
+    
+    conn.close()
+    return results
+
+
+# deprecated and slow, please use 
 @router.get("/name/{full_name}")
 async def get_player_stats(full_name: str):
   conn = sqlitecloud.connect(get_db_url())
