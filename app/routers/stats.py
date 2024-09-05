@@ -68,7 +68,7 @@ async def search_for_player(partial_name_string: str):
     return results
 
 
-# deprecated and slow, please use 
+# deprecated and slow, please use search_for_player instead 
 @router.get("/name/{full_name}")
 async def get_player_stats(full_name: str):
   conn = sqlitecloud.connect(get_db_url())
